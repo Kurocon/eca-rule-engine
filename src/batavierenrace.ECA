@@ -1,0 +1,25 @@
+#
+# batavierenrace.ECA: Twitter dashboard for final project of the Pearls of Computer Science module.
+#
+# Group 14
+#
+#
+
+IMPORT standaard
+IMPORT geo
+IMPORT simple_wordcloud
+IMPORT eca_math
+IMPORT eca_string
+
+CELL 'tweets' {'event': 'createTweetlistGadget', 'data': [json_serialize({"cell": "tweets", "id": "myTweetlist"})]}
+
+DECLARE tweets = csv_read_kv_dict('modules/tweets_final_bata.csv',0,2)
+DECLARE labels = csv_read_kv_dict('modules/tweets_final_bata.csv',0,1)
+DECLARE aggr_tweets = 0
+
+DECLARE ntweets = 0
+
+RULE: new_tweet_rule
+EVENT: new_tweet
+CONDITION: labels[str(new_tweet.id)] == 'C'
+ACTION:	add_tweetlist_tweet('myTweetlist',new_tweet.json_dict)
