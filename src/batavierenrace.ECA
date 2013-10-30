@@ -22,11 +22,17 @@ IMPORT format_tweets
 
 CELL 'tweets' {'event': 'createTweetlistGadget', 'data': [json_serialize({"cell": "tweets", "id": "myTweetlist"})]}
 
-DECLARE tweets = parseHelper('modules/tweets_final_bata.csv',0,1)
+DECLARE tweets = parseHelper('modules/batavierenrace_tweets.csv',0,1)
 
-DECLARE aggr_tweets = 0
+DECLARE num_tweets = 0
 
 RULE: new_tweet_rule
 EVENT: new_tweet
-CONDITION: tweets[new_tweet.id] == '1'
+CONDITION: ((tweets[new_tweet.id] == 'C') OR (tweets[new_tweet.id] == 'D'))
 ACTION:	add_tweetlist_tweet('myTweetlist',new_tweet.json_dict)
+print(tweets[new_tweet.id])
+num_tweets = num_tweets + 1
+
+EVENT: finalize
+ACTION: print(num_tweets)
+print(" Tweets displayed")
