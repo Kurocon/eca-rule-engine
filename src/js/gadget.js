@@ -285,7 +285,7 @@ define(["jquery", "hcharts", "gmap3", "jqcloud"],
         theGadget.prepend(newItem);
         // TODO: remove last one if more than 20
         // alert();
-        if (theGadget.children().size() > 5) {
+        if (theGadget.children().size() > 3) {
             theGadget.children().last().remove();
         }
         return this;
