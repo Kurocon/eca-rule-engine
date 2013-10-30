@@ -5,24 +5,28 @@
 #
 #
 
+# A = 1
+# C = 2
+# D = 3
+# P = 4
+# R = 5
+# N = 6
+# T = 7
+
 IMPORT standaard
 IMPORT geo
 IMPORT simple_wordcloud
 IMPORT eca_math
 IMPORT eca_string
+IMPORT format_tweets
 
 CELL 'tweets' {'event': 'createTweetlistGadget', 'data': [json_serialize({"cell": "tweets", "id": "myTweetlist"})]}
 
-DECLARE tweets = csv_read_kv_dict('modules/tweets_final_bata.csv',0,2)
-DECLARE labels = csv_read_kv_dict('modules/tweets_final_bata.csv',0,1)
+DECLARE tweets = parseHelper('modules/tweets_final_bata.csv',0,1)
+
 DECLARE aggr_tweets = 0
 
-DECLARE ntweets = 0
-
-#RULE: new_tweet_rule
-#EVENT: new_tweet
-#CONDITION: labels[str(new_tweet.id)] == 'C'
-#ACTION:	add_tweetlist_tweet('myTweetlist',new_tweet.json_dict)
-
-EVENT: initialize
-ACTION: print(labels[0])
+RULE: new_tweet_rule
+EVENT: new_tweet
+CONDITION: tweets[new_tweet.id] == '1'
+ACTION:	add_tweetlist_tweet('myTweetlist',new_tweet.json_dict)
