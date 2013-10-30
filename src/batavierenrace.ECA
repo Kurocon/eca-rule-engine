@@ -19,7 +19,10 @@ DECLARE aggr_tweets = 0
 
 DECLARE ntweets = 0
 
-RULE: new_tweet_rule
-EVENT: new_tweet
-CONDITION: labels[str(new_tweet.id)] == 'C'
-ACTION:	add_tweetlist_tweet('myTweetlist',new_tweet.json_dict)
+#RULE: new_tweet_rule
+#EVENT: new_tweet
+#CONDITION: labels[str(new_tweet.id)] == 'C'
+#ACTION:	add_tweetlist_tweet('myTweetlist',new_tweet.json_dict)
+
+EVENT: initialize
+ACTION: print(labels[0])
