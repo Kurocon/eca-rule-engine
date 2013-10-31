@@ -3,15 +3,6 @@
 #
 # Group 14
 #
-#
-
-# A = 1
-# C = 2
-# D = 3
-# P = 4
-# R = 5
-# N = 6
-# T = 7
 
 IMPORT standaard
 IMPORT geo
@@ -20,12 +11,27 @@ IMPORT eca_math
 IMPORT eca_string
 IMPORT format_tweets
 
-CELL 'tweets' {'event': 'createTweetlistGadget', 'data': [json_serialize({"cell": "tweets", "id": "myTweetlist"})]}
-
 DECLARE tweets = parseHelper('modules/batavierenrace_tweets.csv',0,1)
 
 DECLARE num_tweets = 0
+DECLARE graphdata = [0, 0, 0, 0]
 
+CELL 'tweets' {'event': 'createTweetlistGadget', 'data': [json_serialize({"cell": "tweets", "id": "myTweetlist"})]}
+
+CELL 'graph' GADGET 'chart' OPTIONS {id: 'mychart', title: '',
+	highchartoptions: {
+		chart: { type: 'bar' },
+		height: 250,
+		xAxis: { categories:  ['Persoonlijk', 'Resultaten', 'Nuttig', 'Team']},
+		yAxis: { max: 200, title:{text: 'Aantal tweets (klik om te vergroten)'} },
+		series: [{
+			name: 'Aantal tweets',
+			data: graphdata
+		}],
+		legend: { layout: 'vertical', backgroundColor: '#FFFF00', align: 'right', verticalAlign: 'top', y: 60, x: -60, floating: True  }
+	}}
+
+# Adding new tweets to the tweet ticker
 RULE: new_tweet_rule
 EVENT: new_tweet
 CONDITION: ((tweets[new_tweet.id] == 'C') OR (tweets[new_tweet.id] == 'D'))
@@ -33,6 +39,29 @@ ACTION:	add_tweetlist_tweet('myTweetlist',new_tweet.json_dict)
 print(tweets[new_tweet.id])
 num_tweets = num_tweets + 1
 
+
+# Adding items to the barchart
+RULE: new_tweet_rule
+EVENT: new_tweet
+CONDITION: (tweets[new_tweet.id] == 'P')
+ACTION:	graphdata[0] = graphdata[0] + 1
+
+RULE: new_tweet_rule
+EVENT: new_tweet
+CONDITION: (tweets[new_tweet.id] == 'R')
+ACTION:	graphdata[1] = graphdata[1] + 1
+
+RULE: new_tweet_rule
+EVENT: new_tweet
+CONDITION: (tweets[new_tweet.id] == 'N')
+ACTION:	graphdata[2] = graphdata[2] + 1
+
+RULE: new_tweet_rule
+EVENT: new_tweet
+CONDITION: (tweets[new_tweet.id] == 'T')
+ACTION:	graphdata[3] = graphdata[3] + 1
+
+# Debugging
 EVENT: finalize
 ACTION: print(num_tweets)
 print(" Tweets displayed")

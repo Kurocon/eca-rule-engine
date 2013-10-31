@@ -1,48 +1,55 @@
 #tweets{
-	min-height:260px;
-	max-height:260px;
+	min-height:250px;
+	max-height:250px;
 	overflow: auto;
 }
 
-body{
-	background:url('../img/tweed.png') transparent;
-}
-#speed{
-	min-height:250px;
-}
-
-#tweetcontainer{
+#graphcontainer, #tweetcontainer{
+	min-height:320px;
+	max-height:320px;
 	border-top-left-radius: 6px;
-	background:url('../img/lightgreysquares.png') transparent;
+	background:url('../img/debut_light.png') transparent;
 }
 
 #graphcontainer{
+	border-top-left-radius: 0;
 	border-top-right-radius: 6px;
-	background:url('../img/lightgreysquares.png') transparent;
+}
+
+#map-canvas{
+	min-height:271px;
+}
+
+#directionframe{
+	border:0;
 }
 
 #maps{
-	min-height: 400px;
+	min-height: 305px;
 	margin-bottom:20px;
-	background:url('../img/lightgreysquares.png') transparent;
+	background:url('../img/debut_light.png') transparent;
 }
 
 #buienradar{
-	min-height:400px;
+	min-height:305px;
 	border-bottom-right-radius: 6px;
-	background:url('../img/lightgreysquares.png') transparent;
+	background:url('../img/debut_light.png') transparent;
 }
 
 #buienradar img{
 	vertical-align: middle;
-	max-height: 330px;
-	width: 100%;
+	max-height: 271px;
 }
 
 #directions{
-	min-height:400px;
+	min-height:305px;
 	border-bottom-left-radius: 6px;
-	background:url('../img/lightgreysquares.png') transparent;
+	background:url('../img/debut_light.png') transparent;
+	overflow: hidden;
+}
+
+body{
+	background:url('../img/tweed.png') transparent;
 }
 
 ol{
@@ -52,6 +59,8 @@ ol{
 
 h1{
 	color: #e9e9e9;
+	margin-top:10px;
+	margin-bottom:2px;
 }
 
 h3{
@@ -69,7 +78,9 @@ h3{
 }
 
 .page-header{
-	border-color: #a9a9a9;
+	margin: 0 0 8px;
+	padding-bottom:0;
+	border:0;
 }
 
 .avatar{
@@ -107,8 +118,4 @@ h3{
 
 .content{
 	height:80px;
-}
-
-#map-canvas{
-	min-height:330px;
 }
