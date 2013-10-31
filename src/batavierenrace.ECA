@@ -20,10 +20,14 @@ CELL 'tweets' {'event': 'createTweetlistGadget', 'data': [json_serialize({"cell"
 
 CELL 'graph' GADGET 'chart' OPTIONS {id: 'mychart', title: '',
 	highchartoptions: {
-		chart: { type: 'bar' },
-		height: 250,
-		xAxis: { categories:  ['Persoonlijk', 'Resultaten', 'Nuttig', 'Team']},
-		yAxis: { max: 200, title:{text: 'Aantal tweets (klik om te vergroten)'} },
+		credits: { enabled: false },
+		chart: {
+			type: 'bar',
+			height: 250,
+			backgroundColor: 'transparent'
+		},
+		xAxis: { min:0, max:3, categories:  ['Persoonlijk', 'Resultaten', 'Nuttig', 'Team']},
+		yAxis: { min:0, title:{text: 'Aantal tweets (klik om te vergroten)'} },
 		series: [{
 			name: 'Aantal tweets',
 			data: graphdata
@@ -36,7 +40,6 @@ RULE: new_tweet_rule
 EVENT: new_tweet
 CONDITION: ((tweets[new_tweet.id] == 'C') OR (tweets[new_tweet.id] == 'D'))
 ACTION:	add_tweetlist_tweet('myTweetlist',new_tweet.json_dict)
-print(tweets[new_tweet.id])
 num_tweets = num_tweets + 1
 
 
@@ -45,23 +48,26 @@ RULE: new_tweet_rule
 EVENT: new_tweet
 CONDITION: (tweets[new_tweet.id] == 'P')
 ACTION:	graphdata[0] = graphdata[0] + 1
+append_point('mychart',0,graphdata[0])
+print(graphdata)
 
 RULE: new_tweet_rule
 EVENT: new_tweet
 CONDITION: (tweets[new_tweet.id] == 'R')
 ACTION:	graphdata[1] = graphdata[1] + 1
+append_point('mychart',1,graphdata[1])
+print(graphdata)
 
 RULE: new_tweet_rule
 EVENT: new_tweet
 CONDITION: (tweets[new_tweet.id] == 'N')
-ACTION:	graphdata[2] = graphdata[2] + 1
+ACTION: graphdata[2] = graphdata[2] + 1
+append_point('mychart',2,graphdata[2])
+print(graphdata)
 
 RULE: new_tweet_rule
 EVENT: new_tweet
 CONDITION: (tweets[new_tweet.id] == 'T')
 ACTION:	graphdata[3] = graphdata[3] + 1
-
-# Debugging
-EVENT: finalize
-ACTION: print(num_tweets)
-print(" Tweets displayed")
+append_point('mychart',3,graphdata[3])
+print(graphdata)
