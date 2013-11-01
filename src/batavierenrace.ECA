@@ -16,7 +16,14 @@ DECLARE tweets = parseHelper('modules/batavierenrace_tweets.csv',0,1)
 DECLARE num_tweets = 0
 DECLARE graphdata = [0, 0, 0, 0]
 
+# Main tweetlist
 CELL 'tweets' {'event': 'createTweetlistGadget', 'data': [json_serialize({"cell": "tweets", "id": "myTweetlist"})]}
+
+# Popup tweetlists
+CELL 'personal-tweetcontainer' {'event': 'createTweetlistGadget', 'data': [json_serialize({"cell": "personal-tweetcontainer", "id": "personalTweets"})]}
+CELL 'results-tweetcontainer' {'event': 'createTweetlistGadget', 'data': [json_serialize({"cell": "results-tweetcontainer", "id": "resultTweets"})]}
+CELL 'useful-tweetcontainer' {'event': 'createTweetlistGadget', 'data': [json_serialize({"cell": "useful-tweetcontainer", "id": "usefulTweets"})]}
+CELL 'team-tweetcontainer' {'event': 'createTweetlistGadget', 'data': [json_serialize({"cell": "team-tweetcontainer", "id": "teamTweets"})]}
 
 CELL 'graph' GADGET 'chart' OPTIONS {id: 'mychart', title: '',
 	highchartoptions: {
@@ -33,7 +40,8 @@ CELL 'graph' GADGET 'chart' OPTIONS {id: 'mychart', title: '',
 			data: graphdata
 		}],
 		legend: { layout: 'vertical', backgroundColor: '#FFFF00', align: 'right', verticalAlign: 'top', y: 60, x: -60, floating: True  }
-	}}
+	}
+}
 
 # Adding new tweets to the tweet ticker
 RULE: new_tweet_rule
@@ -49,25 +57,25 @@ EVENT: new_tweet
 CONDITION: (tweets[new_tweet.id] == 'P')
 ACTION:	graphdata[0] = graphdata[0] + 1
 append_point('mychart',0,graphdata[0])
-print(graphdata)
+add_tweetlist_tweet('personalTweets',new_tweet.json_dict)
 
 RULE: new_tweet_rule
 EVENT: new_tweet
 CONDITION: (tweets[new_tweet.id] == 'R')
 ACTION:	graphdata[1] = graphdata[1] + 1
 append_point('mychart',1,graphdata[1])
-print(graphdata)
+add_tweetlist_tweet('resultTweets',new_tweet.json_dict)
 
 RULE: new_tweet_rule
 EVENT: new_tweet
 CONDITION: (tweets[new_tweet.id] == 'N')
 ACTION: graphdata[2] = graphdata[2] + 1
 append_point('mychart',2,graphdata[2])
-print(graphdata)
+add_tweetlist_tweet('usefulTweets',new_tweet.json_dict)
 
 RULE: new_tweet_rule
 EVENT: new_tweet
 CONDITION: (tweets[new_tweet.id] == 'T')
 ACTION:	graphdata[3] = graphdata[3] + 1
 append_point('mychart',3,graphdata[3])
-print(graphdata)
+add_tweetlist_tweet('teamTweets',new_tweet.json_dict)

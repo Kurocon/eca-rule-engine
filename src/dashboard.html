@@ -40,8 +40,41 @@
   </head>
 
   <body>
-    <div class="container">
 
+    <div id="personal-container" class="hidden-container" onclick="toggleElement('#personal-container')">
+      <div class="row">
+        <div class="col-md-12 hidden-tweetcontainer" id="personal-tweets">
+          <h3>Persoonlijke tweets</h3>
+          <div id="personal-tweetcontainer"></div>
+        </div>
+      </div>
+    </div>
+    <div id="results-container" class="hidden-container" onclick="toggleElement('#results-container')">
+      <div class="row">
+        <div class="col-md-12 hidden-tweetcontainer" id="results-tweets">
+          <h3>Resultaten tweets</h3>
+          <div id="results-tweetcontainer"></div>
+        </div>
+      </div>
+    </div>
+    <div id="useful-container" class="hidden-container" onclick="toggleElement('#useful-container')">
+      <div class="row">
+        <div class="col-md-12 hidden-tweetcontainer" id="useful-tweets">
+          <h3>Nuttige tweets</h3>
+          <div id="useful-tweetcontainer"></div>
+        </div>
+      </div>
+    </div>
+    <div id="team-container" class="hidden-container" onclick="toggleElement('#team-container')">
+      <div class="row">
+        <div class="col-md-12 hidden-tweetcontainer" id="team-tweets">
+          <h3>Team tweets</h3>
+          <div id="team-tweetcontainer"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
       <div class="page-header">
         <h1>Batavierenrace Twitterdashboard</h1>
       </div>
@@ -55,6 +88,10 @@
           <h3>Race Stats</h3>
           <div id="graph">
           </div>
+          <div id="bar1Click" onclick="toggleElement('#personal-container')"></div>
+          <div id="bar2Click" onclick="toggleElement('#results-container')"></div>
+          <div id="bar3Click" onclick="toggleElement('#useful-container')"></div>
+          <div id="bar4Click" onclick="toggleElement('#team-container')"></div>
         </div>
       </div>
 
@@ -76,6 +113,8 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
+
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
 
     <!-- Maps JS -->
     <style type="text/css">
@@ -149,6 +188,9 @@
       }
       google.maps.event.addDomListener(window, 'load', initialize);
     </script>
+
+    <!-- Popup Javascript -->
+    <script type="text/javascript" src="js/popups.js"></script>
 
   </body>
 </html>

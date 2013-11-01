@@ -1,7 +1,7 @@
 #tweets{
-	min-height:250px;
-	max-height:250px;
-	overflow: auto;
+	min-height:235px;
+	max-height:235px;
+	overflow: hidden;
 }
 
 #graphcontainer, #tweetcontainer{
@@ -135,4 +135,52 @@ h3{
 
 .highcharts-tooltip{
 	display:none;
+}
+
+/*
+	Pop-out CSS
+*/
+
+#bar1Click{
+	position:relative;
+	width:100%;
+	height:30px;
+	top:-205px;
+}
+#bar2Click{
+	position:relative;
+	width:100%;
+	height:30px;
+	top:-195px;
+}
+#bar3Click{
+	position:relative;
+	width:100%;
+	height:30px;
+	top:-185px;
+}
+#bar4Click{
+	position:relative;
+	width:100%;
+	height:30px;
+	top:-175px;
+}
+
+.hidden-container{
+	position:fixed;
+	z-index:999;
+	height:100%;
+	width:100%;
+	margin:auto;
+	background: rgba(0,0,0,0.5);
+	display:none;
+}
+
+.hidden-tweetcontainer{
+	border-radius: 6px;
+	height:500px;
+	width:800px;
+	margin:110px auto 0;
+	background:url('../img/debut_light.png') transparent;
+	overflow:auto;
 }
