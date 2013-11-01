@@ -17,7 +17,7 @@
 }
 
 #map-canvas{
-	min-height:271px;
+	min-height:303px;
 }
 
 #directionframe{
@@ -26,7 +26,7 @@
 
 #maps{
 	min-height: 305px;
-	margin-bottom:20px;
+	padding: 0;
 	background:url('../img/debut_light.png') transparent;
 }
 
@@ -39,10 +39,12 @@
 #buienradar img{
 	vertical-align: middle;
 	max-height: 271px;
+	box-shadow: 5px 5px 15px #222;
 }
 
 #directions{
 	min-height:305px;
+	padding-right:0;
 	border-bottom-left-radius: 6px;
 	background:url('../img/debut_light.png') transparent;
 	overflow: hidden;
@@ -75,6 +77,10 @@ h3{
 
 .content-box {
 	box-shadow: 5px 5px 5px #222;
+}
+
+.container{
+	margin-bottom: 20px;
 }
 
 .page-header{
